@@ -41,8 +41,6 @@ public class ProjetoService {
     Pessoa pessoa = pessoaService.getById(pessoaId);
     if (!p.getPessoas().contains(pessoa))
       p.getPessoas().add(pessoa);
-    if (!pessoa.getProjetos().contains(p))
-      pessoa.getProjetos().add(p);
     return repository.save(p);
   }
   @Transactional
@@ -51,7 +49,6 @@ public class ProjetoService {
     Projeto p = getById(projetoId);
     Pessoa pessoa = pessoaService.getById(pessoaId);
     p.getPessoas().remove(pessoa);
-    pessoa.getProjetos().remove(p);
     return repository.save(p);
   }
 }

@@ -1,10 +1,7 @@
 // ALTERAR: troque o pacote pelo nome da entidade equivalente na prova.
 package insper.prova.pessoa;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 // ALTERAR: nome da entidade JPA.
 @Entity
 public class Pessoa {
@@ -13,10 +10,6 @@ public class Pessoa {
   @NotBlank(message = "CPF não pode ser vazio")
   @Column(nullable = false, unique = true)
   private String cpf;
-  @JsonIgnore
-  @ManyToMany(mappedBy = "pessoas")
-  // ALTERAR: entidade relacionada e nome do atributo conforme a relação N:N da prova.
-  private List<insper.prova.projeto.Projeto> projetos = new ArrayList<>();
   public int getId() {
     return id;
   }
@@ -34,11 +27,5 @@ public class Pessoa {
   }
   public void setCpf(String c) {
     cpf = c;
-  }
-  public List<insper.prova.projeto.Projeto> getProjetos() {
-    return projetos;
-  }
-  public void setProjetos(List<insper.prova.projeto.Projeto> p) {
-    projetos = p;
   }
 }
