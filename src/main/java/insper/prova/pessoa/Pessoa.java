@@ -1,9 +1,11 @@
+// ALTERAR: troque o pacote pelo nome da entidade equivalente na prova.
 package insper.prova.pessoa;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
+// ALTERAR: nome da entidade JPA.
 @Entity
 public class Pessoa {
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY) private int id;
@@ -13,6 +15,7 @@ public class Pessoa {
   private String cpf;
   @JsonIgnore
   @ManyToMany(mappedBy = "pessoas")
+  // ALTERAR: entidade relacionada e nome do atributo conforme a relação N:N da prova.
   private List<insper.prova.projeto.Projeto> projetos = new ArrayList<>();
   public int getId() {
     return id;
