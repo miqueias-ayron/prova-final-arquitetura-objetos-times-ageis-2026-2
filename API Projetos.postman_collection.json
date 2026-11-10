@@ -1,0 +1,45 @@
+{
+  "info": {
+    "name": "API Projetos",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:8080" },
+    { "key": "token", "value": "" },
+    { "key": "pessoaId", "value": "1" },
+    { "key": "projetoId", "value": "1" },
+    { "key": "departamentoId", "value": "1" }
+  ],
+  "item": [
+    {
+      "name": "Usuário e autenticação",
+      "item": [
+        { "name": "Criar usuário", "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@teste.com\",\n  \"senha\": \"123456\"\n}" }, "url": "{{baseUrl}}/usuarios" } },
+        { "name": "Login", "event": [{ "listen": "test", "script": { "exec": ["pm.collectionVariables.set('token', pm.response.json().token);"] } }], "request": { "method": "POST", "header": [{ "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"email\": \"admin@teste.com\",\n  \"senha\": \"123456\"\n}" }, "url": "{{baseUrl}}/login" } }
+      ]
+    },
+    {
+      "name": "Departamentos",
+      "item": [
+        { "name": "Criar departamento", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Tecnologia\"\n}" }, "url": "{{baseUrl}}/departamentos" } },
+        { "name": "Listar departamentos", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/departamentos" } }
+      ]
+    },
+    {
+      "name": "Pessoas",
+      "item": [
+        { "name": "Criar pessoa", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Pessoa Teste\",\n  \"cpf\": \"12345678900\"\n}" }, "url": "{{baseUrl}}/pessoas" } },
+        { "name": "Listar pessoas", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/pessoas" } }
+      ]
+    },
+    {
+      "name": "Projetos",
+      "item": [
+        { "name": "Criar projeto", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }, { "key": "Content-Type", "value": "application/json" }], "body": { "mode": "raw", "raw": "{\n  \"nome\": \"Projeto Teste\",\n  \"descricao\": \"Descrição do projeto\",\n  \"departamento\": { \"id\": {{departamentoId}} }\n}" }, "url": "{{baseUrl}}/projetos" } },
+        { "name": "Listar projetos", "request": { "method": "GET", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/projetos" } },
+        { "name": "Adicionar pessoa ao projeto", "request": { "method": "POST", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/projetos/{{projetoId}}/pessoas/{{pessoaId}}" } },
+        { "name": "Remover pessoa do projeto", "request": { "method": "DELETE", "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }], "url": "{{baseUrl}}/projetos/{{projetoId}}/pessoas/{{pessoaId}}" } }
+      ]
+    }
+  ]
+}
